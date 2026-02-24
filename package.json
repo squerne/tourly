@@ -1,19 +1,19 @@
 {
-  "name": "onborda",
+  "name": "tourly",
   "version": "1.2.5",
   "description": "The ultimate product tour library for Next.js",
   "license": "MIT",
   "author": "Matt Litherland",
-  "homepage": "https://github.com/uixmat/onborda#readme",
+  "homepage": "https://github.com/squerne/tourly#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uixmat/onborda.git"
+    "url": "git+https://github.com/squerne/tourly.git"
   },
   "keywords": [
     "react-onboarding",
-    "react-onborda",
+    "react-tourly",
     "onboarding",
-    "onborda",
+    "tourly",
     "wizard",
     "react",
     "product-tour",
