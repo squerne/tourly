@@ -18,6 +18,7 @@ Tourly requires a PostgreSQL database. Ensure the following environment variable
 
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/your_db"
+OPENAI_API_KEY="sk-your-openai-api-key"
 ```
 
 Run the initialization script `schema.sql` against your database to create the `tours` and `steps` tables.

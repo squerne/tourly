@@ -58,14 +58,38 @@ Input Steps:
 ${JSON.stringify(translationTasks, null, 2)}
 `;
 
-        const response = await generateContentForTier('normal', prompt, { jsonMode: true });
+        if (!process.env.OPENAI_API_KEY) {
+            return NextResponse.json({ success: false, error: "Missing OPENAI_API_KEY environment variable." }, { status: 500 });
+        }
+
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini", // Or any equivalent model
+                response_format: { type: "json_object" },
+                messages: [
+                    { role: "system", content: "You are a helpful localization assistant." },
+                    { role: "user", content: prompt }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+           throw new Error(`OpenAI API Error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        const rawText = data.choices[0].message.content;
 
         let parsedData;
         try {
-            const rawText = response.text.replace(/```json\n?|\n?```/g, '').trim();
             parsedData = JSON.parse(rawText);
         } catch (e) {
-            console.error("Failed to parse AI json:", response.text);
+            console.error("Failed to parse AI json:", rawText);
             throw new Error("Failed to parse AI translation JSON");
         }
 
